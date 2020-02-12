@@ -48,7 +48,7 @@ ChatBot::~ChatBot()
 // copy 
 ChatBot::ChatBot(const ChatBot &origin) 
 {
-    std::cout << "ChatBot Copy Constructor" << &origin << " to instance " << this << std::endl;
+    std::cout << "ChatBot Copy Constructor" << std::endl;
 
     _chatLogic = origin._chatLogic;
     _rootNode = origin._rootNode;
@@ -58,7 +58,7 @@ ChatBot::ChatBot(const ChatBot &origin)
 // copy assignment 
 ChatBot &ChatBot::operator=(const ChatBot &origin) 
 {
-    std::cout << "ChatBot Copy Assignment Constructor" << &origin << " to instance " << this << std::endl;
+    std::cout << "ChatBot Copy Assignment Constructor" << std::endl;
     
     if (this == &origin) {
         return *this;
@@ -76,7 +76,7 @@ ChatBot &ChatBot::operator=(const ChatBot &origin)
 // move 
 ChatBot::ChatBot(ChatBot &&origin) 
 {
-    std::cout << "ChatBot Move Constructor" << &origin << " to instance " << this << std::endl;
+    std::cout << "ChatBot Move Constructor" << std::endl;
 
     _chatLogic = origin._chatLogic;
     _rootNode = origin._rootNode;
@@ -90,7 +90,7 @@ ChatBot::ChatBot(ChatBot &&origin)
 // move assignment
 ChatBot &ChatBot::operator=(ChatBot &&origin) 
 {
-    std::cout << "ChatBot Move Assignment Operator" << &origin << " to instance " << this << std::endl;
+    std::cout << "ChatBot Move Assignment Operator" << std::endl;
 
     if (this == &origin) {
         return *this;
@@ -156,6 +156,8 @@ void ChatBot::SetCurrentNode(GraphNode *node)
     std::mt19937 generator(int(std::time(0)));
     std::uniform_int_distribution<int> dis(0, answers.size() - 1);
     std::string answer = answers.at(dis(generator));
+
+    _chatLogic->SetChatbotHandle(this);
 
     // send selected node answer to user
     _chatLogic->SendMessageToUser(answer);
